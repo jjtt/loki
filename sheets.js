@@ -128,5 +128,5 @@ function recordPosition(latLng) {
   console.log(latLng);
   name = $("#tuntemattomat :selected").text();
 
-  appendPre('output', name + ", " + latLng.lat + ", " + latLng.lng);
+  appendPre('output', name + ", " + latLng.lat() + ", " + latLng.lng());
 }
