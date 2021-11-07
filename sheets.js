@@ -38,7 +38,7 @@ function initClient() {
     authorizeButton.onclick = handleAuthClick;
     signoutButton.onclick = handleSignoutClick;
   }, function(error) {
-    appendPre(JSON.stringify(error, null, 2));
+    appendPre('content', JSON.stringify(error, null, 2));
   });
 }
 
@@ -77,8 +77,8 @@ function handleSignoutClick(event) {
  *
  * @param {string} message Text to be placed in pre element.
  */
-function appendPre(message) {
-  var pre = document.getElementById('content');
+function appendPre(id, message) {
+  var pre = document.getElementById(id);
   var textContent = document.createTextNode(message + '\n');
   pre.appendChild(textContent);
 }
@@ -93,14 +93,14 @@ function listPlaces() {
   }).then(function(response) {
     var range = response.result;
     if (range.values.length > 0) {
-      appendPre('Name, Lat, Lon:');
+      appendPre('content', 'Name, Lat, Lon:');
       for (i = 0; i < range.values.length; i++) {
         var row = range.values[i];
         name = row[0];
         lat = row[1];
         lon = row[2];
         // Print columns A, B, C
-        appendPre(name + ', ' + lat + ', ' + lon);
+        appendPre('content', name + ', ' + lat + ', ' + lon);
 
         if (lat !== undefined && lon !== undefined) {
           addMarker(lat, lon);
@@ -109,10 +109,10 @@ function listPlaces() {
         }
       }
     } else {
-      appendPre('No data found.');
+      appendPre('content', 'No data found.');
     }
   }, function(response) {
-    appendPre('Error: ' + response.result.error.message);
+    appendPre('content', 'Error: ' + response.result.error.message);
   });
 }
 
@@ -122,4 +122,11 @@ function addUnknown(name) {
     value: name,
     text: name
   }));
+}
+
+function recordPosition(latLng) {
+  console.log(latLng);
+  name = $("#tuntemattomat :selected").text();
+
+  appendPre('output', name + ", " + latLng.lat + ", " + latLng.lng);
 }

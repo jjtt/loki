@@ -18,6 +18,10 @@ function initMap() {
   });
 
   bounds = new google.maps.LatLngBounds();
+
+  map.addListener("click", (e) => {
+    recordPosition(e.latLng);
+  });
 }
 
 function addMarker(lat, lon) {
