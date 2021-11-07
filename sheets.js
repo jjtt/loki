@@ -25,20 +25,20 @@ function handleClientLoad() {
  */
 function initClient() {
   gapi.client.init({
-apiKey: API_KEY,
-clientId: CLIENT_ID,
-discoveryDocs: DISCOVERY_DOCS,
-scope: SCOPES
-}).then(function () {
-  // Listen for sign-in state changes.
-  gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
+    apiKey: API_KEY,
+    clientId: CLIENT_ID,
+    discoveryDocs: DISCOVERY_DOCS,
+    scope: SCOPES
+  }).then(function () {
+    // Listen for sign-in state changes.
+    gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
 
-  // Handle the initial sign-in state.
-  updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
-  authorizeButton.onclick = handleAuthClick;
-  signoutButton.onclick = handleSignoutClick;
+    // Handle the initial sign-in state.
+    updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+    authorizeButton.onclick = handleAuthClick;
+    signoutButton.onclick = handleSignoutClick;
   }, function(error) {
-  appendPre(JSON.stringify(error, null, 2));
+    appendPre(JSON.stringify(error, null, 2));
   });
 }
 
@@ -89,21 +89,21 @@ function appendPre(message) {
  */
 function listMajors() {
   gapi.client.sheets.spreadsheets.values.get({
-spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-range: 'Class Data!A2:E',
-}).then(function(response) {
-  var range = response.result;
-  if (range.values.length > 0) {
-  appendPre('Name, Major:');
-  for (i = 0; i < range.values.length; i++) {
-  var row = range.values[i];
-  // Print columns A and E, which correspond to indices 0 and 4.
-  appendPre(row[0] + ', ' + row[4]);
-  }
-  } else {
-  appendPre('No data found.');
-  }
+    spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
+    range: 'Class Data!A2:E',
+  }).then(function(response) {
+    var range = response.result;
+    if (range.values.length > 0) {
+    appendPre('Name, Major:');
+    for (i = 0; i < range.values.length; i++) {
+    var row = range.values[i];
+    // Print columns A and E, which correspond to indices 0 and 4.
+    appendPre(row[0] + ', ' + row[4]);
+    }
+    } else {
+    appendPre('No data found.');
+    }
   }, function(response) {
-  appendPre('Error: ' + response.result.error.message);
+    appendPre('Error: ' + response.result.error.message);
   });
 }
