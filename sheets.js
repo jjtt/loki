@@ -89,19 +89,19 @@ function appendPre(message) {
  */
 function listMajors() {
   gapi.client.sheets.spreadsheets.values.get({
-    spreadsheetId: '1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms',
-    range: 'Class Data!A2:E',
+    spreadsheetId: '1lErteSHrIT8-gVrJ43R_Powy3D22nRTFiKzaFjcKxsk',
+    range: 'paikat!A2:C',
   }).then(function(response) {
     var range = response.result;
     if (range.values.length > 0) {
-    appendPre('Name, Major:');
-    for (i = 0; i < range.values.length; i++) {
-    var row = range.values[i];
-    // Print columns A and E, which correspond to indices 0 and 4.
-    appendPre(row[0] + ', ' + row[4]);
-    }
+      appendPre('Name, Major:');
+      for (i = 0; i < range.values.length; i++) {
+        var row = range.values[i];
+        // Print columns A, B, C
+        appendPre(row[0] + ', ' + row[1] + ', ' + row[2]);
+      }
     } else {
-    appendPre('No data found.');
+      appendPre('No data found.');
     }
   }, function(response) {
     appendPre('Error: ' + response.result.error.message);
