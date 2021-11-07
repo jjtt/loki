@@ -21,6 +21,7 @@ function initMap() {
 }
 
 function addMarker(lat, lon) {
+  console.log("lat: " + lat + ", lon: " + lon);
   if (lat === undefined || lon === undefined) {
     return;
   }
@@ -29,7 +30,7 @@ function addMarker(lat, lon) {
     map: map
   });
 
-  bounds.extend(m);
+  bounds.extend(m.getPosition());
 
   map.fitBounds(bounds);
 }
