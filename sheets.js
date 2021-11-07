@@ -96,9 +96,17 @@ function listPlaces() {
       appendPre('Name, Lat, Lon:');
       for (i = 0; i < range.values.length; i++) {
         var row = range.values[i];
+        name = row[0];
+        lat = row[1];
+        lon = row[2];
         // Print columns A, B, C
-        appendPre(row[0] + ', ' + row[1] + ', ' + row[2]);
-        addMarker(row[1], row[2]);
+        appendPre(name + ', ' + lat + ', ' + lon);
+
+        if (lat !== undefined && lon !== undefined) {
+          addMarker(lat, lon);
+        } else {
+          addUnknown(name);
+        }
       }
     } else {
       appendPre('No data found.');
@@ -106,4 +114,12 @@ function listPlaces() {
   }, function(response) {
     appendPre('Error: ' + response.result.error.message);
   });
+}
+
+
+function addUnknown(name) {
+  $('#tuntemattomat').append($('<option>', {
+    value: name,
+    text: name
+  }));
 }
