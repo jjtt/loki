@@ -1,6 +1,6 @@
 var map;
 
-var bounds = new google.maps.LatLngBounds();
+var bounds;
 
 // Initialize and add the map
 function initMap() {
@@ -16,11 +16,16 @@ function initMap() {
     position: uluru,
     map: map,
   });
+
+  bounds = new google.maps.LatLngBounds();
 }
 
 function addMarker(lat, lon) {
+  if (lat === undefined || lon === undefined) {
+    return;
+  }
   const m = new google.maps.Marker({
-    position: { lat: lat, lng: lon },
+    position: { lat: parseFloat(lat), lng: parseFloat(lon) },
     map: map
   });
 
