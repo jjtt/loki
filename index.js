@@ -22,7 +22,7 @@ function addMarker(lat, lon) {
   const m = new google.maps.Marker({
     position: { lat: lat, lng: lon },
     map: map
-  };
+  });
 
   bounds.extend(m);
 
