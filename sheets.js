@@ -50,7 +50,7 @@ function updateSigninStatus(isSignedIn) {
   if (isSignedIn) {
     authorizeButton.style.display = 'none';
     signoutButton.style.display = 'block';
-    listMajors();
+    listPlaces();
   } else {
     authorizeButton.style.display = 'block';
     signoutButton.style.display = 'none';
@@ -84,21 +84,21 @@ function appendPre(message) {
 }
 
 /**
- * Print the names and majors of students in a sample spreadsheet:
- * https://docs.google.com/spreadsheets/d/1BxiMVs0XRA5nFMdKvBdBZjgmUUqptlbs74OgvE2upms/edit
+ * List places from a sheet
  */
-function listMajors() {
+function listPlaces() {
   gapi.client.sheets.spreadsheets.values.get({
     spreadsheetId: '1lErteSHrIT8-gVrJ43R_Powy3D22nRTFiKzaFjcKxsk',
     range: 'paikat!A2:C',
   }).then(function(response) {
     var range = response.result;
     if (range.values.length > 0) {
-      appendPre('Name, Major:');
+      appendPre('Name, Lat, Lon:');
       for (i = 0; i < range.values.length; i++) {
         var row = range.values[i];
         // Print columns A, B, C
         appendPre(row[0] + ', ' + row[1] + ', ' + row[2]);
+        addMarker(row[1], row[2]);
       }
     } else {
       appendPre('No data found.');
