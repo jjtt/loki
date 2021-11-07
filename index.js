@@ -1,4 +1,4 @@
-const map;
+var map;
 
 var bounds = new google.maps.LatLngBounds();
 
